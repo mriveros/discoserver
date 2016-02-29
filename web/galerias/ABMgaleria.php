@@ -3,6 +3,14 @@ session_start();
 if(!isset($_SESSION['codigo_usuario']))
 header("Location:http://localhost/HansaII/login/acceso.html");
 $catego=  $_SESSION["categoria_usuario"];
+?>
+<?php 
+
+$directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
+
+$uploadHandler = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ClsGalerias.php'; 
+
+$max_file_size = 100000000; 
 
 ?>
 <!DOCTYPE html>
@@ -161,7 +169,7 @@ $catego=  $_SESSION["categoria_usuario"];
     </div>
     <!-- /#wrapper -->
 	<!-- /#MODAL AGREGACIONES -->
-	<div class="modal fade" id="modalagr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modalagr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" enctype="multipart/form-data">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- Modal Header -->
@@ -172,7 +180,7 @@ $catego=  $_SESSION["categoria_usuario"];
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form  autocomplete="off" class="form-horizontal" name="agregarform" action="../class/ClsGalerias.php" method="post" role="form">
+                                    <form  id="Upload" autocomplete="off" class="form-horizontal" name="agregarform" action="ClsGalerias.php" enctype="multipart/form-data"  method="post" role="form">
 						
                                        <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Evento</label>
@@ -193,9 +201,12 @@ $catego=  $_SESSION["categoria_usuario"];
                                             </div>
 					</div>
                                         <div class="form-group">
+                                            
                                             <label  class="col-sm-2 control-label" for="input01">Imagen</label>
                                             <div class="col-sm-10">
-                                                <input type="file" name="txtImagenA" class="form-control" id="txtImagenA" placeholder="ingrese una imagen" />
+                                                 <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
+                                                 
+                                                 <input type="file" name="file" class="form-control" id="file" placeholder="ingrese una imagen"/>
                                             </div>
 					</div>	
 					<div class="form-group">
@@ -208,7 +219,7 @@ $catego=  $_SESSION["categoria_usuario"];
 				<!-- Modal Footer -->
 				<div class="modal-footer">
 					<button type="reset" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="agregar" class="btn btn-primary">Guardar</button>
+					<button type="submit" name="submit" id="submit" value="Subir Imagen" class="btn btn-primary">Guardar</button>
 					
 				</div>
                                 </form>
@@ -228,9 +239,9 @@ $catego=  $_SESSION["categoria_usuario"];
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                     <form  autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsGalerias.php" method="post" role="form">
+                                     <form  autocomplete="off" class="form-horizontal" name="modificarform" action="ClsGalerias.php" method="post" role="form">
 					 <div class="col-sm-10">
-                                            <input type="hidden" name="txtCodigo" class="form-control" id="txtCodigo"  />
+                                            <input type="hidden" name="txtCodigo" class="form-control" id="txtCodigo"/>
                                             </div>	
                                        <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Evento</label>
@@ -287,7 +298,7 @@ $catego=  $_SESSION["categoria_usuario"];
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form class="form-horizontal" name="borrarform" action="../class/ClsGalerias.php" onsubmit="return submitForm();" method="post" role="form">
+                                    <form class="form-horizontal" name="borrarform" action="ClsGalerias.php" onsubmit="return submitForm();" method="post" role="form">
 						<div class="form-group">
 							<input type="numeric" name="txtCodigoE" class="hide" id="txtCodigoE" />
 							<div class="alert alert-danger alert-dismissable col-sm-10 col-sm-offset-1">
