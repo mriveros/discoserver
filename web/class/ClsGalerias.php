@@ -1,8 +1,8 @@
 <?php
 /*
  * Autor: Marcos A. Riveros.
- * Año: 2015
- * Sistema de Compras y Pagos HansaIIA 2.0
+ * Año: 2016
+ * Sistema Servidor Disco
  */
 session_start();
     $codusuario=  $_SESSION["codigo_usuario"];   
@@ -42,12 +42,8 @@ session_start();
             }
         //si es Modificar    
         if(isset($_POST['modificar'])){
-            $imagenconvert=  pg_escape_bytea($imagenM);
-            pg_query("update galeria set img_picture='$imagenM',"
-                    . "eve_cod= '$eventoM',"
-                    . "img_obs= '$descripcionM',"
-                    . "img_activo='$estadoM'"
-                    . "WHERE img_cod=$codigoModif");
+            
+            modificarImagen($eventoM,$descripcionM,$estadoM,$codigoModif);
             $query = '';
             header("Refresh:0; url=http://localhost/disco/web/galerias/ABMgaleria.php");
         }
@@ -64,7 +60,7 @@ function subirImagen($evento,$descripcion){
 
         $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
 
-        $uploadsDirectory = $_SERVER['DOCUMENT_ROOT'] . $directory_self . 'imagenes/'; 
+        $uploadsDirectory = $_SERVER['DOCUMENT_ROOT'] . $directory_self . 'galerias/'; 
 
         $uploadForm = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ABMgaleria.php'; 
 
@@ -89,8 +85,8 @@ function subirImagen($evento,$descripcion){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://192.168.43.163/disco/web/galerias/imagenes/'.$_FILES[$fieldname]['name'];
-        while(file_exists($uploadFilename = $uploadsDirectory.$_FILES[$fieldname]['name'])) 
+        $nombreimagen='http://192.168.43.163/disco/web/class/imagenes/'.$now.$_FILES[$fieldname]['name'];
+        while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
         } 
@@ -101,6 +97,58 @@ function subirImagen($evento,$descripcion){
         
         $query = "INSERT INTO galeria(img_picture,eve_cod,img_obs,img_activo)"
         . "VALUES ('$nombreimagen','$evento','$descripcion','t');";
+        //ejecucion del query
+        $ejecucion = pg_query($query)or die('Error al realizar la carga');
+        $query = '';
+        header("Refresh:0; url=http://localhost/disco/web/galerias/ABMgaleria.php");
+        
+       // header('Location: ' . $uploadSuccess); 
+
+}
+function modificarImagen($evento,$descripcion,$estado,$codigoModif){ 
+
+        $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
+
+        $uploadsDirectory = $_SERVER['DOCUMENT_ROOT'] . $directory_self . 'galerias/'; 
+
+        $uploadForm = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ABMgaleria.php'; 
+
+        $uploadSuccess = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ABMgaleria.php'; 
+
+        $fieldname = 'file';
+        $errors = array(1 => 'php.ini tamaño de archivo excedido', 
+                        2 => 'tamaño excedido en la imagen', 
+                        3 => 'solo se subio la imagen parcialmente', 
+                        4 => 'ningun archivo fue subido'); 
+
+        isset($_POST['modificar']) 
+            or error('el formulario es necesario', $uploadForm); 
+
+        ($_FILES[$fieldname]['error'] == 0) 
+            or error($errors[$_FILES[$fieldname]['error']], $uploadForm); 
+
+        @is_uploaded_file($_FILES[$fieldname]['tmp_name']) 
+            or error('no es una subida http', $uploadForm); 
+
+        @getimagesize($_FILES[$fieldname]['tmp_name']) 
+            or error('solo esta permitido subir imagenes', $uploadForm); 
+
+        $now = time();
+        $nombreimagen='http://192.168.43.163/disco/web/class/imagenes/'.$now.$_FILES[$fieldname]['name'];
+        while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
+        { 
+            $now++; 
+        } 
+
+        @move_uploaded_file($_FILES[$fieldname]['tmp_name'], $uploadFilename) 
+            or error('sin permisos en el directorio', $uploadForm); 
+         
+        
+         $query =("update galeria set img_picture='$nombreimagen',"
+                    . "eve_cod= '$evento',"
+                    . "img_obs= '$descripcion',"
+                    . "img_activo='$estado'"
+                    . "WHERE img_cod=$codigoModif");
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';

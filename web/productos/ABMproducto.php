@@ -127,7 +127,6 @@ $catego=  $_SESSION["categoria_usuario"];
                         $estado=$row1["pro_activo"];
                         if($estado=='t'){$estado='Activo';}else{$estado='Inactivo';}
                         echo "<tr><td style='display:none'>".$row1["pro_cod"]."</td>";
-                        echo "<td style='display:none'>".$row1["iva_cod"]."</td>";
                         echo "<td>".$row1["pro_nom"]."</td>";
                         echo "<td>".$row1["pro_des"]."</td>";
                         echo "<td>".$row1["pro_precio"]."</td>";

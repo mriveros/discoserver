@@ -1,7 +1,7 @@
 <?php
 include("../web/funciones.php");
 conexionlocal();
-$sql = "select eve_cod,eve_nom,eve_des,to_char(eve_fecha,'YYYY/MM/DD') as eve_fecha,eve_imagen from eventos where eve_activo='t';";
+$sql = "select eve_cod,eve_nom,eve_des,to_char(eve_fecha,'DD/MM/YYYY') as eve_fecha,eve_imagen from eventos where eve_activo='t';";
 //$result = pg_query($query) or die ("Error al realizar la consulta");
  
 $resulset = pg_query($sql);

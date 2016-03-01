@@ -180,7 +180,7 @@ $max_file_size = 100000000;
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form  id="Upload" autocomplete="off" class="form-horizontal" name="agregarform" action="ClsGalerias.php" enctype="multipart/form-data"  method="post" role="form">
+                                    <form  id="Upload" autocomplete="off" class="form-horizontal" name="agregarform" action="../class/ClsGalerias.php" enctype="multipart/form-data"  method="post" role="form">
 						
                                        <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Evento</label>
@@ -205,7 +205,6 @@ $max_file_size = 100000000;
                                             <label  class="col-sm-2 control-label" for="input01">Imagen</label>
                                             <div class="col-sm-10">
                                                  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
-                                                 
                                                  <input type="file" name="file" class="form-control" id="file" placeholder="ingrese una imagen"/>
                                             </div>
 					</div>	
@@ -239,7 +238,7 @@ $max_file_size = 100000000;
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                     <form  autocomplete="off" class="form-horizontal" name="modificarform" action="ClsGalerias.php" method="post" role="form">
+                                     <form id="upload" enctype="multipart/form-data" autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsGalerias.php" method="post" role="form">
 					 <div class="col-sm-10">
                                             <input type="hidden" name="txtCodigo" class="form-control" id="txtCodigo"/>
                                             </div>	
@@ -264,7 +263,8 @@ $max_file_size = 100000000;
                                         <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Imagen</label>
                                             <div class="col-sm-10">
-                                                <input type="file" name="txtImagenM" class="form-control" id="txtImagenM" placeholder="ingrese una imagen" />
+                                                  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
+                                                <input type="file" name="file" class="form-control" id="file" placeholder="ingrese una imagen" />
                                             </div>
 					</div>	
 					<div class="form-group">
@@ -272,12 +272,21 @@ $max_file_size = 100000000;
                                             <div class="col-sm-10">
                                             <input type="text" name="txtDescripcionM" class="form-control" id="txtDescripcionM" placeholder="ingrese una descripcion" />
                                             </div>
-					</div>	
+					</div>
+                                         <div class="form-group">
+                                            <label  class="col-sm-2 control-label" for="input03">Estado</label>
+                                            <div class="col-sm-10">
+                                            <div class="radio">
+                                            <label><input type="radio" name="txtEstadoM" value="1" checked /> Activo</label>
+                                            <label><input type="radio" name="txtEstadoM" value="0" /> Inactivo</label>
+                                            </div>
+                                            </div>
+					</div>
 				
 				<!-- Modal Footer -->
 				<div class="modal-footer">
 					<button type="reset" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="modificar" class="btn btn-primary">Guardar</button>
+					<button type="submit" name="modificar" id="submit" value="Subir Imagen"   class="btn btn-primary">Guardar</button>
 					
 				</div>
                                 </form>
@@ -298,7 +307,7 @@ $max_file_size = 100000000;
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form class="form-horizontal" name="borrarform" action="ClsGalerias.php" onsubmit="return submitForm();" method="post" role="form">
+                                    <form class="form-horizontal" name="borrarform" action="../class/ClsGalerias.php" onsubmit="return submitForm();" method="post" role="form">
 						<div class="form-group">
 							<input type="numeric" name="txtCodigoE" class="hide" id="txtCodigoE" />
 							<div class="alert alert-danger alert-dismissable col-sm-10 col-sm-offset-1">

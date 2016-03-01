@@ -5,6 +5,15 @@ header("Location:http://localhost/disco/login/acceso.html");
 $catego=  $_SESSION["categoria_usuario"];
 
 ?>
+<?php 
+
+$directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
+
+$uploadHandler = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ClsEventos.php'; 
+
+$max_file_size = 100000000; 
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -172,7 +181,7 @@ $catego=  $_SESSION["categoria_usuario"];
 				</div>
             
 				<!-- Modal Body -->
-                                 <form  autocomplete="off" class="form-horizontal" name="agregarform" action="../class/ClsEventos.php" method="post" role="form">
+                                 <form  id="Upload" enctype="multipart/form-data"   autocomplete="off" class="form-horizontal" name="agregarform" action="../class/ClsEventos.php" method="post" role="form">
 				<div class="modal-body">
                                    
 						
@@ -197,7 +206,8 @@ $catego=  $_SESSION["categoria_usuario"];
                                      <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Imagen</label>
                                             <div class="col-sm-10">
-                                                <input type="file" name="txtImagenA" class="form-control" id="txtImagenA" required />
+                                              <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
+                                              <input type="file" name="file" class="form-control" id="file" placeholder="ingrese una imagen"/>
                                             </div>
 					</div>
                                        
@@ -207,7 +217,7 @@ $catego=  $_SESSION["categoria_usuario"];
 				<!-- Modal Footer -->
 				<div class="modal-footer">
 					<button type="reset" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="agregar" class="btn btn-primary">Guardar</button>
+					<button type="submit" name="submit" id="submit" value="Subir Imagen" class="btn btn-primary">Guardar</button>
 					
 				</div>
                                 </form>	
@@ -225,7 +235,7 @@ $catego=  $_SESSION["categoria_usuario"];
 					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-pencil"></i> Modificar Registro</h3>
 				</div>
 				<!-- Modal Body -->
-                                 <form  autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsEventos.php"  method="post" role="form">
+                                 <form  id="upload" enctype="multipart/form-data"  autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsEventos.php"  method="post" role="form">
 				<div class="modal-body">
                                    
                                         <div class="form-group">
@@ -255,6 +265,7 @@ $catego=  $_SESSION["categoria_usuario"];
                                         <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Imagen</label>
                                             <div class="col-sm-10">
+                                            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
                                             <input type="file" name="txtImagenM" class="form-control" id="txtImagenM" required  />
                                             </div>
 					</div>
@@ -273,7 +284,7 @@ $catego=  $_SESSION["categoria_usuario"];
 				<!-- Modal Footer -->
 				<div class="modal-footer">
 					<button type="reset" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="modificar" class="btn btn-primary">Guardar</button>
+					<button type="submit" name="modificar" id="submit" class="btn btn-primary">Guardar</button>
 					
 				</div>
                                 </form>
