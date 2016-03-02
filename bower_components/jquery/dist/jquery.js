@@ -5929,7 +5929,7 @@ jQuery.extend({
 		"lineHeight": true,
 		"opacity": true,
 		"order": true,
-		"orpHansaII": true,
+		"orpDisco": true,
 		"widows": true,
 		"zIndex": true,
 		"zoom": true

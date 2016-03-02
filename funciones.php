@@ -15,7 +15,7 @@
         }
         //funcion para comprobar si existe el mismo dato en la tabla
        function func_existeDato($dato, $tabla, $columna){
-            selectConexion('HansaII');
+            selectConexion('Disco');
             $query = "select * from $tabla where $columna = '$dato' ;";
             $result = pg_query($query) or die ("Error al realizar la consulta");
             if (pg_num_rows($result)>0)

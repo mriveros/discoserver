@@ -2,7 +2,7 @@
 /*
  * Autor: Marcos A. Riveros.
  * Año: 2015
- * Sistema de Compras y Pagos HansaIIA 2.0
+ * Sistema de Compras y Pagos DiscoA 2.0
  */
 session_start();
 $codusuario=  $_SESSION["codigo_usuario"];
@@ -23,10 +23,10 @@ $codusuario=  $_SESSION["codigo_usuario"];
         if(isset($_POST['modificar'])){
             pg_query("update reservas set res_confirm='$estadoM' where res_cod=$codigoModif");
             $query = '';
-            header("Refresh:0; url=http://localhost/disco/web/reservas/ABMreserva.php");
+            header("Refresh:0; url=http://104.236.113.194/disco/web/reservas/ABMreserva.php");
         }
         //Si es Eliminar
         if(isset($_POST['borrar'])){
             pg_query("update reservas set res_activo='f' WHERE res_cod=$codigoElim");
-            header("Refresh:0; url=http://localhost/disco/web/reservas/ABMreserva.php");
+            header("Refresh:0; url=http://104.236.113.194/disco/web/reservas/ABMreserva.php");
 	}

@@ -224,8 +224,8 @@
 #
 # The legal time in the UK outside of summer time is definitely GMT, not UTC;
 # see Lord Tanlaw's speech
-# <a href="http://www.parliament.the-stationery-office.co.uk/pa/ld199697/ldHansaIIrd/pdvn/lds97/text/70611-20.htm#70611-20_head0">
-# (Lords HansaIIard 11 June 1997 columns 964 to 976)
+# <a href="http://www.parliament.the-stationery-office.co.uk/pa/ld199697/ldDiscord/pdvn/lds97/text/70611-20.htm#70611-20_head0">
+# (Lords Discoard 11 June 1997 columns 964 to 976)
 # </a>.
 
 # From Paul Eggert (2006-03-22):
@@ -2123,7 +2123,7 @@ Zone Europe/Moscow	 2:30:20 -	LMT	1880
 			 3:00	Russia	MSK/MSD	2011 Mar 27 2:00s
 			 4:00	-	MSK
 #
-# AstrakHansaIIkaya oblast', Kirovskaya oblast', Saratovskaya oblast',
+# AstrakDiscokaya oblast', Kirovskaya oblast', Saratovskaya oblast',
 # Volgogradskaya oblast'.  Shanks & Pottenger say Kirov is still at +0400
 # but Wikipedia (2006-05-09) says +0300.  Perhaps it switched after the
 # others?  But we have no data.

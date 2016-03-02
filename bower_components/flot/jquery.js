@@ -6689,7 +6689,7 @@ jQuery.extend({
 		"fontWeight": true,
 		"lineHeight": true,
 		"opacity": true,
-		"orpHansaII": true,
+		"orpDisco": true,
 		"widows": true,
 		"zIndex": true,
 		"zoom": true

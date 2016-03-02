@@ -2,7 +2,7 @@
 /*
  * Autor: Marcos A. Riveros.
  * Año: 2015
- * Sistema de Compras y Pagos HansaIIA 2.0
+ * Sistema de Compras y Pagos DiscoA 2.0
  */
 session_start();
 $codusuario=  $_SESSION["codigo_usuario"];
@@ -34,23 +34,23 @@ $codusuario=  $_SESSION["codigo_usuario"];
             if(func_existeDato($nombreA, 'productos', 'pro_nom')==true){
                 echo '<script type="text/javascript">
 		alert("El Producto ya existe. Ingrese otro Producto.");
-                window.location="http://localhost/disco/web/productos/ABMproducto.php";
+                window.location="http://104.236.113.194/disco/web/productos/ABMproducto.php";
 		</script>';
                 }else{              
                 //se define el Query
                 agregarProducto($nombreA,$precioA,$descripcionA);
-                header("Refresh:0; url=http://localhost/disco/web/productos/ABMproducto.php");
+                header("Refresh:0; url=http://104.236.113.194/disco/web/productos/ABMproducto.php");
                 }
             }
         //si es Modificar    
         if(isset($_POST['modificar'])){
             modificarProducto($nombreM,$descripcionM,$precioM,$estadoM,$codigoModif);
-            header("Refresh:0; url=http://localhost/disco/web/productos/ABMproducto.php");
+            header("Refresh:0; url=http://104.236.113.194/disco/web/productos/ABMproducto.php");
         }
         //Si es Eliminar
         if(isset($_POST['borrar'])){
             pg_query("update productos set pro_activo='f' WHERE pro_cod=$codigoElim");
-            header("Refresh:0; url=http://localhost/disco/web/productos/ABMproducto.php");
+            header("Refresh:0; url=http://104.236.113.194/disco/web/productos/ABMproducto.php");
             
 	}
    function agregarProducto($nombre,$precio,$descripcion){ 
@@ -96,7 +96,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
                 //ejecucion del query
                 $ejecucion = pg_query($query)or die('Error al realizar la carga');
                 $query = '';
-        header("Refresh:0; url=http://localhost/disco/web/productos/ABMproducto.php");
+        header("Refresh:0; url=http://104.236.113.194/disco/web/productos/ABMproducto.php");
         
        // header('Location: ' . $uploadSuccess); 
 
@@ -149,14 +149,14 @@ function modificarProducto($nombre,$descripcion,$precio,$estado,$codigoModif){
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';
-        header("Refresh:0; url=http://localhost/disco/web/productos/ABMproducto.php");
+        header("Refresh:0; url=http://104.236.113.194/disco/web/productos/ABMproducto.php");
         
        // header('Location: ' . $uploadSuccess); 
 
 }
 function error($error, $location, $seconds = 5) 
         { 
-            header("Refresh: $seconds; URL=http://localhost/disco/web/productos/ABMproducto.php"); 
+            header("Refresh: $seconds; URL=http://104.236.113.194/disco/web/productos/ABMproducto.php"); 
             echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"'.
             '"http://www.w3.org/TR/html4/strict.dtd">'.
             '<html lang="es">'.
