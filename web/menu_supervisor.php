@@ -1,4 +1,14 @@
 <?php 
+
+if(!isset($_SESSION['codigo_usuario']))
+    header("Location:http://localhost/disco/login/acceso.html");
+    $catego=  $_SESSION["categoria_usuario"];
+    if($catego==2){
+        header("Location:http://localhost/disco/web/menu_usuario.php");
+    }
+    if($catego==3){
+        header("Location:http://localhost/disco/web/menu_supervisor.php");
+    }
     $conectate=pg_connect("host=192.168.0.99 port=5432 dbname=estaciones user=postgres password=postgres")or die ('Error al conectar a la base de datos');
     $consulta= pg_exec($conectate,"select sum(reg_cant)as cantidad,sum(reg_aprob) as aprobados,sum(reg_reprob)
     as reprobados,sum(reg_claus)as clausurados from registros where reg_fecha < now()");

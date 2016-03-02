@@ -1,9 +1,8 @@
-<?php 
+<?php
 session_start();
 if(!isset($_SESSION['codigo_usuario']))
 header("Location:http://localhost/disco/login/acceso.html");
 $catego=  $_SESSION["categoria_usuario"];
-
 ?>
 <?php 
 

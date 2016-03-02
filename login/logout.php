@@ -1,5 +1,5 @@
 <?php 
 	session_start(); 
 	session_destroy(); 
-	header("Location:http://localhost/HansaII/login/acceso.html");
+	header("Location:http://localhost/disco/login/acceso.html");
 ?>

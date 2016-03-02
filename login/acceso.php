@@ -27,7 +27,7 @@ $pwd=md5($_REQUEST['clave']);
 	{
 		echo '<script type="text/javascript">
                          alert("Nombre de Usuario o Password no valido..!");
-			 window.location="http://localhost/HansaII/login/acceso.html";
+			 window.location="http://localhost/disco/login/acceso.html";
                       </script>';
 	}
 	else
@@ -37,7 +37,8 @@ $pwd=md5($_REQUEST['clave']);
             $_SESSION["codigo_usuario"] = $row['usu_cod'];
             $_SESSION["categoria_usuario"] = $row['cat_cod'];
             if ($row['cat_cod']==1){
-                 header("Location:http://localhost/disco/web/menu.php");
+                echo '<script type="text/javascript">alert("aca");</script>';
+                header("Location:http://localhost/disco/web/menu.php");
                  
             }else if($row['cat_cod']==2){
                 header("Location:http://localhost/disco/web/menu_usuario.php");

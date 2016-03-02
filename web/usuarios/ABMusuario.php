@@ -1,9 +1,8 @@
-<?php 
+<?php
 session_start();
 if(!isset($_SESSION['codigo_usuario']))
-header("Location:http://localhost/HansaII/login/acceso.html");
+header("Location:http://localhost/disco/login/acceso.html");
 $catego=  $_SESSION["categoria_usuario"];
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +15,7 @@ $catego=  $_SESSION["categoria_usuario"];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hansa II- Usuarios</title>
+    <title>Disco- Usuarios</title>
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -95,7 +94,7 @@ $catego=  $_SESSION["categoria_usuario"];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                      <h1 class="page-header">Usuarios - <small>Hansa II</small></h1>
+                      <h1 class="page-header">Usuarios - <small>Disco</small></h1>
                 </div>	
             </div>
             <!-- /.row -->

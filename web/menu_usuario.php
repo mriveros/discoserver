@@ -1,11 +1,14 @@
 <?php 
-    $conectate=pg_connect("host=192.168.0.99 port=5432 dbname=estaciones user=postgres password=postgres")or die ('Error al conectar a la base de datos');
-    $consulta= pg_exec($conectate,"select sum(reg_cant)as cantidad,sum(reg_aprob) as aprobados,sum(reg_reprob)
-    as reprobados,sum(reg_claus)as clausurados from registros where reg_fecha < now()");
-    $cantidad=pg_result($consulta,0,'cantidad');
-    $aprobados=pg_result($consulta,0,'aprobados');
-    $reprobados=pg_result($consulta,0,'reprobados');
-    $clausurados=pg_result($consulta,0,'clausurados');
+    $conectate=pg_connect("host=localhost port=5432 dbname=disco user=postgres password=postgres")or die ('Error al conectar a la base de datos');
+    $consulta1= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_fecha < now()");
+    $consulta2= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='f' and res_fecha < now()");
+    $consulta3= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='f' and res_confirm='f' and res_fecha < now()");
+    $consulta4= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='t' and res_fecha < now()");
+
+    $cantidadReservas=pg_result($consulta1,0,'cantidad');
+    $ReservasNoCOnfirmadas=pg_result($consulta2,0,'cantidad');
+    $ReservasRechazadas=pg_result($consulta3,0,'cantidad');
+    $ReservasConfirmadas=pg_result($consulta4,0,'cantidad');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,23 +34,28 @@
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-    <title>CONTROL ESTACIONES DE SERVICIOS</title>
+    <title>Disco</title>
 </head>
 
 <body>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+           
             <div class="navbar-header">
+                  
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    
                     <span class="sr-only">Toggle navigation</span>
+                    
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Sistema de Control- Estaciones de Servicios</a>
+                <img src="http://localhost/disco/img/gama_fiesta.png" width=500 height=80 alt="Obra de K. Haring"> 
             </div>
+            <center><a class="navbar-brand" href="#"><h2>Sistema de Servidor de Eventos- Disco</h2></a></center>
             <!-- /.navbar-header -->
-
+            <br><br>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -58,11 +66,11 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Precintos Aprobados</strong>
-                                        <span class="pull-right text-muted"><?php echo $aprobados;?> Precintos</span>
+                                        <strong>Reservas Confirmadas</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasConfirmadas;?> Reservas</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $aprobados;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $aprobados;?>%">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $ReservasConfirmadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
                                             <span class="sr-only"></span>
                                         </div>
                                     </div>
@@ -74,11 +82,27 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Precintos Reprobados</strong>
-                                        <span class="pull-right text-muted"><?php echo $reprobados;?> Precintos</span>
+                                        <strong>Reservas Sin Confirmar</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasNoCOnfirmadas;?> Reservas</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $aprobados;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $reprobados;?>%">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $ReservasNoCOnfirmadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                         <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Reservas Rechazadas</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasRechazadas;?> Reservas</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $ReservasRechazadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
                                             <span class="sr-only">20% Complete</span>
                                         </div>
                                     </div>
@@ -87,22 +111,6 @@
                         </li>
                         <li class="divider"></li>
                         
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Precintos Clausurados</strong>
-                                        <span class="pull-right text-muted"><?php echo $clausurados;?> Precintos</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<?php echo $aprobados;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $clausurados;?>%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
@@ -137,34 +145,52 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#" value="Load new document" onclick="pageprinci()"><i class="fa fa-dashboard fa-fw"></i>Menu Principal</a>
+                            <a href="http://localhost/disco/web/menu_usuario.php" value="Load new document" onclick="location.reload();"><i class="fa  fa-tasks"></i> Menu Principal</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa  fa-users"></i> CLIENTES<span class="fa arrow"></span></a>
+			<li>
+                            <a href="#"><i class="fa  fa-users"></i> RESERVAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://localhost/disco/web/clientes/ABMcliente.php"> Registros de Clientes</a>
-                                </li>
-                                <li>
+                                    <a href="http://localhost/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa  fa-flask "></i>DISTRIBUIDORES<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa  fa-home "></i>  EVENTOS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://localhost/disco/web/distribuidores/ABMdistribuidor.php">Registros de Distribuidores</a>
+                                    <a href="http://localhost/disco/web/eventos/ABMevento.php">Registros de Eventos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench "></i> REGISTROS ESTACIONES<span class="fa arrow"></span></a>
+                         
+                         <li>
+                            <a href="#"><i class="fa  fa-flickr "></i> GALERIAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://localhost/disco/web/estaciones/ABMregistro.php"> Registro de Estaciones</a>
+                                    <a href="http://localhost/disco/web/galerias/ABMgaleria.php">Registros de Imágenes</a>
                                 </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa  fa-cubes"></i> BARMAN<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="http://localhost/disco/web/productos/ABMproducto.php">Registros Productos</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="#"><i class=""></i> Help <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                
+                                    <a href="">Contacte con el Programador: mriveros@intn.gov.py</a>
+                              
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -174,5 +200,6 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+       
 </body>
 </html>

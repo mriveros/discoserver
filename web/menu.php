@@ -1,11 +1,15 @@
-<?php 
+<?php
+  
     $conectate=pg_connect("host=localhost port=5432 dbname=disco user=postgres password=postgres")or die ('Error al conectar a la base de datos');
-    $consulta= pg_exec($conectate,"select count(res_cod)as cantidad from reservas where res_fecha < now()");
-    $consulta2= pg_exec($conectate,"select count(res_cod)as cantidad from reservas where res_activo='t' and res_fecha < now()");
-    $consulta3= pg_exec($conectate,"select count(res_cod)as cantidad from reservas where res_confirm='t' and res_fecha < now()");
-    $cantidad=pg_result($consulta,0,'cantidad');
-    $confirmado=pg_result($consulta3,0,'cantidad');
-    $clausurados=pg_result($consulta,0,'cantidad');
+    $consulta1= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_fecha < now()");
+    $consulta2= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='f' and res_fecha < now()");
+    $consulta3= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='f' and res_confirm='f' and res_fecha < now()");
+    $consulta4= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='t' and res_fecha < now()");
+
+    $cantidadReservas=pg_result($consulta1,0,'cantidad');
+    $ReservasNoCOnfirmadas=pg_result($consulta2,0,'cantidad');
+    $ReservasRechazadas=pg_result($consulta3,0,'cantidad');
+    $ReservasConfirmadas=pg_result($consulta4,0,'cantidad');  
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -63,11 +67,11 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Cantidad Reservas</strong>
-                                        <span class="pull-right text-muted"><?php echo $cantidad;?> Reservas</span>
+                                        <strong>Reservas Confirmadas</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasConfirmadas;?> Reservas</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $cantidad;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $aprobados;?>%">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $ReservasConfirmadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
                                             <span class="sr-only"></span>
                                         </div>
                                     </div>
@@ -79,11 +83,27 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Reservas Aprobadas</strong>
-                                        <span class="pull-right text-muted"><?php echo $confirmado;?> Confirmadas</span>
+                                        <strong>Reservas Sin Confirmar</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasNoCOnfirmadas;?> Reservas</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $confirmado;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $reprobados;?>%">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $ReservasNoCOnfirmadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                         <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Reservas Rechazadas</strong>
+                                        <span class="pull-right text-muted"><?php echo $ReservasRechazadas;?> Reservas</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $ReservasRechazadas;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidadReservas;?>" style="width: <?php echo $cantidadReservas;?>%">
                                             <span class="sr-only">20% Complete</span>
                                         </div>
                                     </div>
@@ -92,22 +112,6 @@
                         </li>
                         <li class="divider"></li>
                         
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Reservas Canceladas</strong>
-                                        <span class="pull-right text-muted"><?php echo $clausurados;?> Cancelados</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<?php echo $clausurados;?>" aria-valuemin="0" aria-valuemax="<?php echo $cantidad;?>" style="width: <?php echo $clausurados;?>%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
