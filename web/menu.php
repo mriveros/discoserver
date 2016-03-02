@@ -157,7 +157,7 @@
                             <a href="#"><i class="fa  fa-users"></i> RESERVAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://localhost/disco/web/proveedores/ABMproveedor.php"> Registros de Reservas</a>
+                                    <a href="http://localhost/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

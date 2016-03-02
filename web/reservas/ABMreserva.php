@@ -5,15 +5,6 @@ header("Location:http://localhost/HansaII/login/acceso.html");
 $catego=  $_SESSION["categoria_usuario"];
 
 ?>
-<?php 
-
-$directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
-
-$uploadHandler = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'ClsProductos.php'; 
-
-$max_file_size = 100000000; 
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +16,7 @@ $max_file_size = 100000000;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Disco-Barman</title>
+    <title>Disco- Reservas</title>
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -63,18 +54,17 @@ $max_file_size = 100000000;
     });
     </script>
 	<script type="text/javascript">
-		function modificar(codigo){
+		function confirmar(codigo){
 			$('tr').click(function() {
 			indi = $(this).index();
                        	var nombre=document.getElementById("dataTables-example").rows[indi+1].cells[1].innerText;
 			var descripcion=document.getElementById("dataTables-example").rows[indi+1].cells[2].innerText;
-                        var precio=document.getElementById("dataTables-example").rows[indi+1].cells[3].innerText;
-                        
+                       
                         //var estado=document.getElementById("dataTables-example").rows[indi+1].cells[5].innerText;
                         document.getElementById("txtCodigo").value = codigo;
                         document.getElementById("txtNombreM").value = nombre;
 			document.getElementById("txtDescripcionM").value = descripcion;
-                        document.getElementById("txtPrecioM").value = precio;
+			
 			});
 		};
 		function eliminar(codigo){
@@ -103,7 +93,7 @@ $max_file_size = 100000000;
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                      <h1 class="page-header">Bar - <small>Disco</small></h1>
+                      <h1 class="page-header">Reservas - <small>Disco</small></h1>
                 </div>	
             </div>
             <!-- /.row -->
@@ -111,7 +101,7 @@ $max_file_size = 100000000;
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Listado de Productos
+                            Listado de Reservas
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -121,28 +111,32 @@ $max_file_size = 100000000;
                                         <tr class="success">
                                             <th style='display:none'>Codigo</th>
                                             <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                            <th>Precio</th>
-                                            <th>Estado</th>
+                                            <th>Observacion</th>
+                                            <th>Evento</th>
+                                            <th>Fecha Reserva</th>
+                                            <th>Confirmado</th>
                                             <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                     <?php
-                    $query = "select * from productos ";
+                    $query = "select * from reservas res, eventos eve where res.eve_cod=eve.eve_cod  and res.res_activo='t';";
                     $result = pg_query($query) or die ("Error al realizar la consulta");
                     while($row1 = pg_fetch_array($result))
                     {
-                        $estado=$row1["pro_activo"];
-                        if($estado=='t'){$estado='Activo';}else{$estado='Inactivo';}
-                        echo "<tr><td style='display:none'>".$row1["pro_cod"]."</td>";
-                        echo "<td>".$row1["pro_nom"]."</td>";
-                        echo "<td>".$row1["pro_des"]."</td>";
-                        echo "<td>".$row1["pro_precio"]."</td>";
-                        echo "<td>".$estado."</td>";
+                        $confirmado=$row1["res_confirm"];
+                        if($confirmado=='t'){$confirmado='SI';}else{$confirmado='NO';}
+                        echo "<tr><td style='display:none'>".$row1["res_cod"]."</td>";
+                        echo "<td>".$row1["res_nom"]."</td>";
+                        echo "<td>".$row1["res_obs"]."</td>";
+                        echo "<td>".$row1["eve_nom"]."</td>";
+                        echo "<td>".$row1["res_fecha"]."</td>";
+                        echo "<td>".$confirmado."</td>";
+                       
                         echo "<td>";?>
-                        <a onclick='modificar(<?php echo $row1["pro_cod"];?>)' class="btn btn-success btn-xs active" data-toggle="modal" data-target="#modalmod" role="button">Modificar</a>
-                        <a onclick='eliminar(<?php echo $row1["pro_cod"];?>)' class="btn btn-danger btn-xs active" data-toggle="modal" data-target="#modalbor" role="button">Borrar</a>
+                        
+                        <a onclick='confirmar(<?php echo $row1["res_cod"];?>)' class="btn btn-success btn-xs active" data-toggle="modal" data-target="#modalmod" role="button">Confirmar!</a>
+                        <a onclick='eliminar(<?php echo $row1["res_cod"];?>)' class="btn btn-danger btn-xs active" data-toggle="modal" data-target="#modalbor" role="button">Borrar</a>
                         <?php
                         echo "</td></tr>";
                     }
@@ -151,7 +145,6 @@ $max_file_size = 100000000;
                                     </tbody>
                                 </table>
                             </div>
-                            <a  class="btn btn-primary" data-toggle="modal" data-target="#modalagr" role="button">Nuevo</a>
                         </div>
                         <!-- /.panel-body -->
                         
@@ -166,59 +159,7 @@ $max_file_size = 100000000;
         <!-- /#page-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
-	<!-- /#MODAL AGREGACIONES -->
-	<div class="modal fade" id="modalagr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- Modal Header -->
-				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-floppy-disk"></i> Agregar Registro</h3>
-				</div>
-            
-				<!-- Modal Body -->
-				<div class="modal-body">
-                                    <form id="Upload" enctype="multipart/form-data"   autocomplete="off" class="form-horizontal" name="agregarform" action="../class/ClsProductos.php" method="post" role="form">
-					
-                                        
-                                        <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Producto</label>
-                                            <div class="col-sm-10">
-                                            <input type="text" name="txtNombreA" class="form-control" id="txtNombreA" placeholder="ingrese nombre producto" required="true"/>
-                                            </div>
-					</div>
-					<div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Descripcion</label>
-                                            <div class="col-sm-10">
-                                            <input type="text" name="txtDescripcionA" class="form-control" id="txtDescripcionA" placeholder="ingrese una descripcion" />
-                                            </div>
-					</div>
-                                        <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Precio</label>
-                                            <div class="col-sm-10">
-                                            <input type="number" name="txtPrecioA" class="form-control" id="txtPrecioA" placeholder="ingrese precio" required="true" />
-                                            </div>
-					</div>
-                                        <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Imagen</label>
-                                            <div class="col-sm-10">
-                                              <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
-                                              <input type="file" name="file" class="form-control" id="file" placeholder="ingrese una imagen"/>
-                                            </div>
-					</div>
-				<!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                            <button type="reset" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-                                            <button type="submit" name="submit" id="submit" value="Subir Imagen" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                      
-                                        </form>
-				</div>
-                                </div>
-			</div>
-		</div>
-	</div>
+   
 	
 	<!-- /#MODAL MODIFICACIONES -->
 	<div class="modal fade" id="modalmod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -227,47 +168,35 @@ $max_file_size = 100000000;
 				<!-- Modal Header -->
 				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-pencil"></i> Modificar Registro</h3>
+					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-pencil"></i> Confirmar Reserva!</h3>
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form  id="upload" enctype="multipart/form-data" autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsProductos.php"  method="post" role="form">
+                                    <form  autocomplete="off" class="form-horizontal" name="modificarform" action="../class/ClsReservas.php"  method="post" role="form">
                                         <div class="form-group">
                                             <div class="col-sm-10">
                                             <input type="hidden" name="txtCodigo" class="form-control" id="txtCodigo"  />
                                             </div>
 					</div>
                                         <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Producto</label>
+                                            <input type="numeric" name="codigo1" class="hide" id="input000" />
+                                            <label  class="col-sm-2 control-label" for="input01">Nombre</label>
                                             <div class="col-sm-10">
-                                            <input type="text" name="txtNombreM" class="form-control" id="txtNombreM" placeholder="ingrese nombre producto" required="true"/>
+                                                <input type="text" name="txtNombreM" class="form-control" id="txtNombreM" placeholder="ingrese nombre" readonly="true"/>
                                             </div>
 					</div>
 					<div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Descripcion</label>
                                             <div class="col-sm-10">
-                                            <input type="text" name="txtDescripcionM" class="form-control" id="txtDescripcionM" placeholder="ingrese una descripcion" />
+                                            <input type="text" name="txtDescripcionM" class="form-control" id="txtDescripcionM" placeholder="ingrese una descripcion" readonly="true" />
                                             </div>
 					</div>
                                         <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Precio</label>
-                                            <div class="col-sm-10">
-                                            <input type="number" name="txtPrecioM" class="form-control" id="txtPrecioM" placeholder="ingrese precio" required="true" />
-                                            </div>
-					</div>
-                                        <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input01">Imagen</label>
-                                            <div class="col-sm-10">
-                                            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" />
-                                            <input type="file" name="txtImagenM" class="form-control" id="txtImagenM" required  />
-                                            </div>
-					</div>
-                                        <div class="form-group">
-                                            <label  class="col-sm-2 control-label" for="input03">Estado</label>
+                                            <label  class="col-sm-2 control-label" for="input03">Desea Confirmar?</label>
                                             <div class="col-sm-10">
                                             <div class="radio">
-                                            <label><input type="radio" name="txtEstadoM" value="1" checked /> Activo</label>
-                                            <label><input type="radio" name="txtEstadoM" value="0" /> Inactivo</label>
+                                            <label><input type="radio" name="txtEstadoM" value="1" checked /> SI</label>
+                                            <label><input type="radio" name="txtEstadoM" value="0" /> NO</label>
                                             </div>
                                             </div>
 					</div>		
@@ -290,12 +219,12 @@ $max_file_size = 100000000;
 				<!-- Modal Header -->
 				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-trash"></i> Borrar Registro</h3>
+					<h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-trash"></i> Eliminar Reserva! :(</h3>
 				</div>
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form class="form-horizontal" name="borrarform" action="../class/ClsProductos.php" onsubmit="return submitForm();" method="post" role="form">
+                                    <form class="form-horizontal" name="borrarform" action="../class/ClsReservas.php" onsubmit="return submitForm();" method="post" role="form">
 						<div class="form-group">
 							<input type="numeric" name="txtCodigoE" class="hide" id="txtCodigoE" />
 							<div class="alert alert-danger alert-dismissable col-sm-10 col-sm-offset-1">
@@ -304,6 +233,7 @@ $max_file_size = 100000000;
 							</div>
 						</div>
 				</div>
+				
 				<!-- Modal Footer -->
 				<div class="modal-footer">
 					<button type="" onclick="location.reload();" class="btn btn-warning" data-dismiss="modal">Cancelar</button>

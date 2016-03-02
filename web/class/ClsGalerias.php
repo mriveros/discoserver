@@ -85,7 +85,7 @@ function subirImagen($evento,$descripcion){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://192.168.43.163/disco/web/class/imagenes/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://192.168.43.163/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
@@ -134,7 +134,7 @@ function modificarImagen($evento,$descripcion,$estado,$codigoModif){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://192.168.43.163/disco/web/class/imagenes/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://192.168.43.163/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
