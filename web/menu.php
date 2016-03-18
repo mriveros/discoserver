@@ -198,17 +198,12 @@
                             <a href="#"><i class="fa  fa-file-text "></i> INFORMES<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenCompras.php">Resumen Compras</a>
+                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenReservas.php">Resumen Reservas</a>
                                 </li>
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenPagos.php">Resumen Pagos</a>
+                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenRechazados.php">Resumen no Aceptados</a>
                                 </li>
-                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenComprasProveedor.php">Resumen Compras-Proveedor</a>
-                                </li>
-                                <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenPagosProveedor.php">Resumen Pagos-Proveedor</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

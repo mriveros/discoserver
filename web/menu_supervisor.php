@@ -151,32 +151,15 @@ if(!isset($_SESSION['codigo_usuario']))
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa  fa-file-text "></i>INFORMES<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa  fa-file-text "></i> INFORMES<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/FrmRegistrosFecha.php">Resumen Registros por mes</a>
+                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenReservas.php">Resumen Reservas</a>
                                 </li>
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmClientesFecha.php">Resumen Registros por Cliente-Fecha</a>
+                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenRechazados.php">Resumen no Aceptados</a>
                                 </li>
-                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmDistribuidorFecha.php">Resumen Registros por Distribuidor</a>
-                                </li>
-                                <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/FrmDepartamentoFecha.php">Resumen por Departamentos-Fecha</a>
-                                </li>
-                                <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/FrmUsuariosFecha.php">Resumen por Usuarios-Fecha</a>
-                                </li>
-                                <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmRankingRegistrosFecha.php">Ranking Registros por mes</a>
-                                </li>
-                                <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmRankingClientesFecha.php">Ranking Registros por Clientes</a>
-                                </li>
-                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmRankingDepartamentoFecha.php">Ranking Registros por Departamento</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
