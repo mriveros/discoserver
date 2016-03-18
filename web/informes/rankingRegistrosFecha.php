@@ -26,33 +26,33 @@ function Footer()
 
 function Header()
 {
-   // Select Arial bold 15
-    $this->SetFont('Arial','',16);
-    $this->Image('img/intn.jpg',10,14,-300,0,'','../../InformeCargos.php');
+     // Select Arial bold 15
+        $this->SetFont('Arial','',9);
+	$this->Image('img/noctua_ico.jpeg',15,10,-300,0,'','../../InformeCargos.php');
     // Move to the right
     $this->Cell(80);
     // Framed title
-    $this->text(37,19,utf8_decode('Instituto Nacional de Tecnología, Normalización y Metrología'));
-    $this->SetFont('Arial','',8);
-    $this->text(37,24,"Avda. Gral. Artigas 3973 c/ Gral Roa- Tel.: (59521)290 160 -Fax: (595921) 290 873 ");
-    $this->text(37,29,"ORGANISMO NACIONAL DE METROLOGIA");
-    $this->text(37,34,"Telefax: (595921) 295 408 e-mail: metrologia@intn.gov.py");
-    //-----------------------TRAEMOS LOS DATOS DE CABECERA----------------------
-   
-    //---------------------------------------------------------
-    $this->Ln(30);
+	$this->text(15,32,utf8_decode('Noctua Nigth Club - Pilar'));
+	$this->text(300,32,'Sistema Servidor de Aplicaciones Moviles');
+        //$this->text(315,37,'Mes: '.utf8_decode(genMonth_Text($mes).' Año: 2016'));
+	//$this->Cell(30,10,'noc',0,0,'C');
+    // Line break
     $this->Ln(30);
 	$this->SetDrawColor(0,0,0);
 	$this->SetLineWidth(.2);
-	$this->Line(200,40,10,40);//largor,ubicacion derecha,inicio,ubicacion izquierda
+	$this->Line(360 ,33,10,33);//largor,ubicacion derecha,inicio,ubicacion izquierda
+//table header     
+    //-----------------------TRAEMOS LOS DATOS DE CABECERA----------------------
+   
+  
     //------------------------RECIBIMOS LOS VALORES DE POST-----------
     if  (empty($_POST['txtDesdeFecha'])){$desde='';}else{ $desde= $_POST['txtDesdeFecha'];}
     if  (empty($_POST['txtHastaFecha'])){$hasta='';}else{ $hasta= $_POST['txtHastaFecha'];}
     //table header CABECERA        
     $this->SetFont('Arial','B',12);
-    $this->SetTitle('Clientes-Estaciones');
-    $this->text(55,50,'CONTROL DE ESTACIONES DE SERVICIOS');
-    $this->text(65,60,'Ranking de Estaciones por Fechas');
+    $this->SetTitle('Resumen de Reservas');
+    $this->text(55,50,'NOCTUA NIGTH CLUB');
+    $this->text(65,60,'Ranking de Reservas');
     $this->text(10,75,'DESDE FECHA:');
     $this->text(45,75,$desde);
     $this->text(10,85,'HASTA FECHA:');
@@ -83,9 +83,9 @@ $i=0;
 $pdf->SetFont('Arial','',10);
 
 //------------------------QUERY and data cargue y se reciben los datos-----------
-$conectate=pg_connect("host=192.168.0.99 port=5432 dbname=estaciones user=postgres password=postgres"
+$conectate=pg_connect("host=localhost port=5432 dbname=estaciones user=postgres password=postgres"
                     . "")or die ('Error al conectar a la base de datos');
-$consulta=pg_exec($conectate,"select sum(reg.reg_cant) as cantidad,sum(reg.reg_aprob)as aprobado, sum(reg.reg_reprob) as reprobado, 
+$consulta=pg_exec($conectate,"select max(eve.eve_nom)as eve_nom, sum(eve.eve_) as cantidad,sum(reg.reg_aprob)as aprobado, sum(reg.reg_reprob) as reprobado, 
 sum(reg.reg_claus) as clausurado
 from registros reg,usuarios usu,clientes cli 
 where reg.cli_cod=cli.cli_cod 

@@ -1,7 +1,7 @@
 <?php
 include("../web/funciones.php");
 conexionlocal();
-$sql = "select img.img_cod,img.eve_cod,eve.eve_nom,img.img_obs,img_activo,img_picture from galeria img,eventos eve where img.eve_cod=eve.eve_cod;";
+$sql = "select img.img_cod,img.eve_cod,eve.eve_nom,img.img_obs,img_activo,img_picture from galeria img,eventos eve where img.eve_cod=eve.eve_cod and img.img_activo='t';";
 //$result = pg_query($query) or die ("Error al realizar la consulta");
  
 $resulset = pg_query($sql);

@@ -16,7 +16,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ONM- Estaciones</title>
+    <title>Disco_Ranking</title>
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -66,7 +66,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                      <h1 class="page-header">Informes - <small>ONM ESTACIONES</small></h1>
+                      <h1 class="page-header">Ranking - <small>Disco</small></h1>
                 </div>	
             </div>
             <!-- /.row -->
@@ -84,7 +84,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
 				<!-- Modal Header -->
 				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="myModalLabel"><i class="fa fa-archive"></i>Ranking Registros por Fecha</h3>
+					<h3 class="modal-title" id="myModalLabel"><i class="fa fa-archive"></i>Ranking Reservas por Fecha</h3>
 				</div>
             
 				<!-- Modal Body -->

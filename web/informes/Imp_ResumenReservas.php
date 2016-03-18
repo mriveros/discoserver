@@ -27,12 +27,12 @@ function Header()
 {
    // Select Arial bold 15
         $this->SetFont('Arial','',9);
-	$this->Image('img/intn.jpg',15,10,-300,0,'','../../InformeCargos.php');
+	$this->Image('img/noctua_ico.jpeg',15,10,-300,0,'','../../InformeCargos.php');
     // Move to the right
     $this->Cell(80);
     // Framed title
-	$this->text(15,32,utf8_decode('Instituto Nacional de Tecnología, Normalización y Metrología'));
-	$this->text(315,32,'Sistema Compras y Pagos');
+	$this->text(15,32,utf8_decode('Noctua Nigth Club - Pilar'));
+	$this->text(300,32,'Sistema Servidor de Aplicaciones Moviles');
         //$this->text(315,37,'Mes: '.utf8_decode(genMonth_Text($mes).' Año: 2016'));
 	//$this->Cell(30,10,'noc',0,0,'C');
     // Line break
@@ -43,8 +43,8 @@ function Header()
 //table header        
     
     $this->SetFont('Arial','B',8);
-    $this->SetTitle('RESUMEN DE COMPRAS');
-    $this->Cell(300,5,'UNIDAD DE COMPRAS',100,100,'C');//Titulo
+    $this->SetTitle('Resumen De Reservas');
+    $this->Cell(300,5,'NOCTUA NIGTH CLUB',100,100,'C');//Titulo
     $this->SetFillColor(153,192,141);
     $this->SetTextColor(255);
     $this->SetDrawColor(153,192,141);
@@ -53,15 +53,14 @@ function Header()
     $this->Cell(50,10,'Nome',1,1,'L',1);*/
     
     $this->Cell(25,10,'Item',1,0,'C',1);
-    $this->Cell(80,10,'Razon Social',1,0,'C',1);
-    $this->Cell(25,10,'Tipo',1,0,'C',1);
-    $this->Cell(25,10,'Nro.',1,0,'C',1);
+    $this->Cell(40,10,'Nombre',1,0,'C',1);
+    $this->Cell(90,10,'Observaciones',1,0,'C',1);
+    $this->Cell(40,10,'Evento',1,0,'C',1);
     $this->Cell(30,10,'Fecha',1,0,'C',1);
-    $this->Cell(25,10,'Termino',1,0,'C',1);
-    $this->Cell(25,10,'Resolucion',1,0,'C',1);
-    $this->Cell(30,10,'Estado',1,0,'C',1);
-    $this->Cell(30,10,'Monto',1,0,'C',1);
-    $this->Cell(30,10,'IVA',1,1,'C',1);
+    $this->Cell(25,10,'Activo',1,0,'C',1);
+    $this->Cell(25,10,'Confirmado',1,0,'C',1);
+    $this->Cell(30,10,'Telefono',1,1,'C',1);
+   
 
 
 //Restore font and colors
@@ -91,11 +90,10 @@ $pdf->SetFont('Arial','B',10);
 
 $conectate=pg_connect("host=localhost port=5432 dbname=disco user=postgres password=postgres"
                     . "")or die ('Error al conectar a la base de datos');
-$consulta=pg_exec($conectate,"SELECT 
-                    ord.ord_tipo,ord.ord_nro,ord.ord_fecha,ord.ord_termino,ord.ord_res,ord.ord_monto,ord.ord_iva,max(pro.pro_razon) as pro_razon,ord.facturado 
-                    from orden_compras ord, proveedores pro
-                    where ord.pro_cod=pro.pro_cod
-                    and ord.ord_fecha >= '$fechadesde' and ord.ord_fecha<='$fechahasta'  group by ord_cod ");
+$consulta=pg_exec($conectate,"SELECT res.res_cod,res.res_nom,res.res_obs,to_char(res.res_fecha,'DD/MM/YYYY')as res_fecha,res.res_activo,res.res_confirm,res.res_telefono,eve.eve_nom,eve.eve_cod 
+                    from reservas res, eventos eve
+                    where res.res_cod=eve.eve_cod
+                    and res.res_fecha >= '$fechadesde' and res.res_fecha<='$fechahasta'  order by res_fecha ");
 
 $numregs=pg_numrows($consulta);
 $pdf->SetFont('Arial','',10);
@@ -108,32 +106,30 @@ while($i<$numregs)
 {
     
    
-    $tipo=pg_result($consulta,$i,'ord_tipo');
-     $razon=pg_result($consulta,$i,'pro_razon');
-    $numero=pg_result($consulta,$i,'ord_nro');
-    $fecha=pg_result($consulta,$i,'ord_fecha');
-    $termino=pg_result($consulta,$i,'ord_termino');
-    $resolucion=pg_result($consulta,$i,'ord_res');
-     $estado=pg_result($consulta,$i,'facturado');
-    $monto=pg_result($consulta,$i,'ord_monto');
-    $iva=pg_result($consulta,$i,'ord_iva');
+    $nombre=pg_result($consulta,$i,'res_nom');
+    $observaciones=pg_result($consulta,$i,'res_obs');
+    $evento=pg_result($consulta,$i,'eve_nom');
+    $fecha=pg_result($consulta,$i,'res_fecha');
+    $activo=pg_result($consulta,$i,'res_activo');
+    $confirmado=pg_result($consulta,$i,'res_confirm');
+    $telefono=pg_result($consulta,$i,'res_telefono');
+   
    
   
     
    
      
     $pdf->Cell(25,5,$i+1,1,0,'C',$fill);
-    $pdf->Cell(80,5,$razon,1,0,'L',$fill);
-    $pdf->Cell(25,5,$tipo,1,0,'C',$fill);
-    $pdf->Cell(25,5,$numero,1,0,'L',$fill);
+    $pdf->Cell(40,5,$nombre,1,0,'L',$fill);
+    $pdf->Cell(90,5,$observaciones,1,0,'C',$fill);
+    $pdf->Cell(40,5,$evento,1,0,'L',$fill);
     $pdf->Cell(30,5,$fecha,1,0,'C',$fill);
-    if($termino=='1'){$termino='Contado';}else{$termino='Credito';}
-    $pdf->Cell(25,5,$termino,1,0,'C',$fill);
-    $pdf->Cell(25,5,$resolucion,1,0,'L',$fill);
-    if($estado=='t'){$estado='Facturado';}else{$estado='Pendiente';}
-    $pdf->Cell(30,5,$estado,1,0,'C',$fill);
-    $pdf->Cell(30,5,number_format($monto, 0, '', '.'),1,0,'L',$fill);
-    $pdf->Cell(30,5,number_format($iva, 0, '', '.'),1,1,'L',$fill);
+    if($activo=='t'){$activo='Activo';}else{$activo='Inactivo';}
+    $pdf->Cell(25,5,$activo,1,0,'C',$fill);
+    if($confirmado=='t'){$confirmado='Confirmado';}else{$confirmado='Rechazado';}
+    $pdf->Cell(25,5,$confirmado,1,0,'L',$fill);
+    $pdf->Cell(30,5,$telefono,1,1,'C',$fill);
+   
     
 
    
@@ -148,34 +144,6 @@ while($i<$numregs)
  * 
  * 
  */
-$pdf->SetFont('Arial','B',8);
-$conectate=pg_connect("host=localhost port=5432 dbname=disco user=postgres password=postgres"
-                    . "")or die ('Error al conectar a la base de datos');
-$consulta2=pg_exec($conectate,"SELECT sum (ord.ord_monto) as monto,sum(ord.ord_iva) as iva
-                    from orden_compras ord, proveedores pro
-                    where ord.pro_cod=pro.pro_cod
-                    and ord_fecha >= '$fechadesde' and ord_fecha<='$fechahasta'");
-$numregs2=pg_numrows($consulta2);
-//Build table
-$fill=false;
-$i=0;
-while($i<$numregs2)
-{
-    
-    
-    $montoT=pg_result($consulta2,$i,'monto');
-    $ivaT=pg_result($consulta2,$i,'iva');
-    
-   $pdf->Cell(265,10,'SUMAS TOTALES',1,0,'C',$fill);
-    $pdf->Cell(30,10,number_format($montoT, 0, '', '.'),1,0,'C',$fill);
-    $pdf->Cell(30,10,number_format($ivaT, 0, '', '.'),1,1,'C',$fill);
-    $fill=!$fill;
-    $i++;
-}
-
-
-
-
 
 
 //Add a rectangle, a line, a logo and some text

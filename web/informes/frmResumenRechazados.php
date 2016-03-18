@@ -16,7 +16,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
     <meta name="description" content="">
     <meta name="author" content="">
 
-     <title>Hansa II-Resumen Compras</title>
+    <title>Disco- Resumen No Aceptados</title>
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -66,7 +66,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                      <h1 class="page-header">Informes - <small>HANSA II</small></h1>
+                      <h1 class="page-header">Informes - <small>Disco</small></h1>
                 </div>	
             </div>
             <!-- /.row -->
@@ -74,7 +74,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Resumen de Compras
+                            Resumen de Rechazos Reservas
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -89,7 +89,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
             
 				<!-- Modal Body -->
 				<div class="modal-body">
-                                    <form  autocomplete="off" class="form-horizontal" name="agregarform" action="Imp_ResumenCompras.php" method="post" role="form">
+                                    <form  autocomplete="off" class="form-horizontal" name="agregarform" action="Inf_ResumenRechazados.php" method="post" role="form">
                                         <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Desde Fecha</label>
                                             <div class="col-sm-10">

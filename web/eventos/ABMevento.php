@@ -130,7 +130,7 @@ $max_file_size = 100000000;
                                     </thead>
                                     <tbody>
                     <?php
-                    $query = "select * from eventos;";
+                    $query = "select eve_activo,eve_cod,eve_nom,eve_des,to_char(eve_fecha,'DD/MM/YYYY')as eve_fecha from eventos;";
                     $result = pg_query($query) or die ("Error al realizar la consulta");
                     while($row1 = pg_fetch_array($result))
                     {
@@ -258,7 +258,7 @@ $max_file_size = 100000000;
                                         <div class="form-group">
                                             <label  class="col-sm-2 control-label" for="input01">Fecha</label>
                                             <div class="col-sm-10">
-                                            <input type="text" name="txtFechaM" class="form-control" id="txtFechaM" required />
+                                            <input type="date" name="txtFechaM" class="form-control" id="txtFechaM" required />
                                             </div>
 					</div>
                                         <div class="form-group">
