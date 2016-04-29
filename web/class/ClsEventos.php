@@ -35,7 +35,7 @@ $codusuario=  $_SESSION["codigo_usuario"];
                 
                 echo '<script type="text/javascript">
 		alert("El evento ya existe. Ingrese otro evento");
-                window.location="http://104.236.113.194/disco/web/eventos/ABMevento.php";
+                window.location="http://dev.appwebpy.com/disco/web/eventos/ABMevento.php";
 		</script>';
                 }else{
                     
@@ -48,12 +48,12 @@ $codusuario=  $_SESSION["codigo_usuario"];
             
             modificarEvento($nombreM,$descripcionM,$fechaM,$estadoM,$codigoModif);
             $query = '';
-            header("Refresh:0; url=http://104.236.113.194/disco/web/eventos/ABMevento.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/eventos/ABMevento.php");
         }
         //Si es Eliminar
         if(isset($_POST['borrar'])){
             pg_query("update eventos set eve_activo='f' WHERE eve_cod=$codigoElim");
-            header("Refresh:0; url=http://104.236.113.194/disco/web/eventos/ABMevento.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/eventos/ABMevento.php");
 	}
         
         
@@ -88,7 +88,7 @@ function agregarEvento($evento,$fecha,$descripcion){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://104.236.113.194/disco/web/class/eventos/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://dev.appwebpy.com/disco/web/class/eventos/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
@@ -103,7 +103,7 @@ function agregarEvento($evento,$fecha,$descripcion){
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';
-        header("Refresh:0; url=http://104.236.113.194/disco/web/eventos/ABMevento.php");
+        header("Refresh:0; url=http://dev.appwebpy.com/disco/web/eventos/ABMevento.php");
         
        // header('Location: ' . $uploadSuccess); 
 
@@ -137,7 +137,7 @@ function modificarEvento($evento,$descripcion,$fecha,$estado,$codigoModif){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://104.236.113.194/disco/web/class/eventos/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://dev.appwebpy.com/disco/web/class/eventos/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
@@ -156,14 +156,14 @@ function modificarEvento($evento,$descripcion,$fecha,$estado,$codigoModif){
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';
-        header("Refresh:0; url=http://104.236.113.194/disco/web/eventos/ABMevento.php");
+        header("Refresh:0; url=http://dev.appwebpy.com/disco/web/eventos/ABMevento.php");
         
        // header('Location: ' . $uploadSuccess); 
 
 }
 function error($error, $location, $seconds = 5) 
         { 
-            header("Refresh: $seconds; URL=http://104.236.113.194/disco/web/eventos/ABMevento.php"); 
+            header("Refresh: $seconds; URL=http://dev.appwebpy.com/disco/web/eventos/ABMevento.php"); 
             echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"'.
             '"http://www.w3.org/TR/html4/strict.dtd">'.
             '<html lang="es">'.

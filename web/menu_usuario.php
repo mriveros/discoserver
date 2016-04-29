@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="http://104.236.113.194/disco/img/gama_fiesta.png" width=500 height=80 alt="Obra de K. Haring"> 
+                <img src="http://dev.appwebpy.com/disco/img/gama_fiesta.png" width=500 height=80 alt="Obra de K. Haring"> 
             </div>
             <center><a class="navbar-brand" href="#"><h2>Sistema de Servidor de Eventos- Disco</h2></a></center>
             <!-- /.navbar-header -->
@@ -145,13 +145,13 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="http://104.236.113.194/disco/web/menu_usuario.php" value="Load new document" onclick="location.reload();"><i class="fa  fa-tasks"></i> Menu Principal</a>
+                            <a href="http://dev.appwebpy.com/disco/web/menu_usuario.php" value="Load new document" onclick="location.reload();"><i class="fa  fa-tasks"></i> Menu Principal</a>
                         </li>
 			<li>
                             <a href="#"><i class="fa  fa-users"></i> RESERVAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -160,7 +160,7 @@
                             <a href="#"><i class="fa  fa-home "></i>  EVENTOS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/eventos/ABMevento.php">Registros de Eventos</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/eventos/ABMevento.php">Registros de Eventos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -170,7 +170,7 @@
                             <a href="#"><i class="fa  fa-flickr "></i> GALERIAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/galerias/ABMgaleria.php">Registros de Imágenes</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php">Registros de Imágenes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -179,7 +179,7 @@
                             <a href="#"><i class="fa  fa-cubes"></i> BARMAN<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/productos/ABMproducto.php">Registros Productos</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/productos/ABMproducto.php">Registros Productos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

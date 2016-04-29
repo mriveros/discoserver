@@ -1,6 +1,6 @@
 <?php
   
-    $conectate=pg_connect("host=localhost port=5432 dbname=disco user=postgres password=postgres")or die ('Error al conectar a la base de datos');
+    $conectate=pg_connect("host=localhost port=5432 dbname=denunciasintn user=postgres password=2016.dat4b4s3.cent0s")or die ('Error al conectar a la base de datos menu');
     $consulta1= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_fecha < now()");
     $consulta2= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='f' and res_fecha < now()");
     $consulta3= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='f' and res_confirm='f' and res_fecha < now()");
@@ -52,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="http://104.236.113.194/disco/img/gama_fiesta.png" width=500 height=80 alt="Obra de K. Haring"> 
+                <img src="http://dev.appwebpy.com/disco/img/gama_fiesta.png" width=500 height=80 alt="Obra de K. Haring"> 
             </div>
             <center><a class="navbar-brand" href="#"><h2>Sistema de Servidor de Eventos- Disco</h2></a></center>
             <!-- /.navbar-header -->
@@ -133,7 +133,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configuracion</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="http://104.236.113.194/disco/web/logout.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
+                        <li><a href="http://dev.appwebpy.com/disco/web/logout.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -146,13 +146,13 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="http://104.236.113.194/disco/web/menu.php" value="Load new document" onclick="location.reload();"><i class="fa  fa-tasks"></i> Menu Principal</a>
+                            <a href="http://dev.appwebpy.com/disco/web/menu.php" value="Load new document" onclick="location.reload();"><i class="fa  fa-tasks"></i> Menu Principal</a>
                         </li>
 			<li>
                             <a href="#"><i class="fa fa-user"></i> USUARIOS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/usuarios/ABMusuario.php">Registros de Usuarios</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/usuarios/ABMusuario.php">Registros de Usuarios</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -161,7 +161,7 @@
                             <a href="#"><i class="fa  fa-users"></i> RESERVAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/reservas/ABMreserva.php"> Registros de Reservas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -170,7 +170,7 @@
                             <a href="#"><i class="fa  fa-home "></i>  EVENTOS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/eventos/ABMevento.php">Registros de Eventos</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/eventos/ABMevento.php">Registros de Eventos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -180,7 +180,7 @@
                             <a href="#"><i class="fa  fa-flickr "></i> GALERIAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/galerias/ABMgaleria.php">Registros de Imágenes</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php">Registros de Imágenes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -189,7 +189,7 @@
                             <a href="#"><i class="fa  fa-cubes"></i> BARMAN<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/productos/ABMproducto.php">Registros Productos</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/productos/ABMproducto.php">Registros Productos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -198,10 +198,10 @@
                             <a href="#"><i class="fa  fa-file-text "></i> INFORMES<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenReservas.php">Resumen Reservas</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/informes/frmResumenReservas.php">Resumen Reservas</a>
                                 </li>
                                 <li>
-                                    <a href="http://104.236.113.194/disco/web/informes/frmResumenRechazados.php">Resumen no Aceptados</a>
+                                    <a href="http://dev.appwebpy.com/disco/web/informes/frmResumenRechazados.php">Resumen no Aceptados</a>
                                 </li>
                                 
                             </ul>

@@ -32,7 +32,7 @@ session_start();
                 
                 echo '<script type="text/javascript">
 		alert("La imagen ya existe. Ingrese otra imagen");
-                window.location="http://104.236.113.194/disco/web/galerias/ABMgaleria.php";
+                window.location="http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php";
 		</script>';
                 }else{
                     
@@ -45,12 +45,12 @@ session_start();
             
             modificarImagen($eventoM,$descripcionM,$estadoM,$codigoModif);
             $query = '';
-            header("Refresh:0; url=http://104.236.113.194/disco/web/galerias/ABMgaleria.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php");
         }
         //Si es Eliminar
         if(isset($_POST['borrar'])){
             pg_query("update galeria set img_activo='f' WHERE img_cod=$codigoElim");
-            header("Refresh:0; url=http://104.236.113.194/disco/web/galerias/ABMgaleria.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php");
 	}
         
         
@@ -85,7 +85,7 @@ function subirImagen($evento,$descripcion){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://104.236.113.194/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://dev.appwebpy.com/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
@@ -100,7 +100,7 @@ function subirImagen($evento,$descripcion){
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';
-        header("Refresh:0; url=http://104.236.113.194/disco/web/galerias/ABMgaleria.php");
+        header("Refresh:0; url=http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php");
         
        // header('Location: ' . $uploadSuccess); 
 
@@ -134,7 +134,7 @@ function modificarImagen($evento,$descripcion,$estado,$codigoModif){
             or error('solo esta permitido subir imagenes', $uploadForm); 
 
         $now = time();
-        $nombreimagen='http://104.236.113.194/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
+        $nombreimagen='http://dev.appwebpy.com/disco/web/class/galerias/'.$now.$_FILES[$fieldname]['name'];
         while(file_exists($uploadFilename = $uploadsDirectory.$now.$_FILES[$fieldname]['name'])) 
         { 
             $now++; 
@@ -152,14 +152,14 @@ function modificarImagen($evento,$descripcion,$estado,$codigoModif){
         //ejecucion del query
         $ejecucion = pg_query($query)or die('Error al realizar la carga');
         $query = '';
-        header("Refresh:0; url=http://104.236.113.194/disco/web/galerias/ABMgaleria.php");
+        header("Refresh:0; url=http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php");
         
        // header('Location: ' . $uploadSuccess); 
 
 }
 function error($error, $location, $seconds = 5) 
         { 
-            header("Refresh: $seconds; URL=http://104.236.113.194/disco/web/galerias/ABMgaleria.php"); 
+            header("Refresh: $seconds; URL=http://dev.appwebpy.com/disco/web/galerias/ABMgaleria.php"); 
             echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"'.
             '"http://www.w3.org/TR/html4/strict.dtd">'.
             '<html lang="es">'.

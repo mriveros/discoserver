@@ -8,7 +8,7 @@
 	$telefono = $_REQUEST['telefono'];
 	$imagen = $_REQUEST['imagen'];
 
- $imagenUrl='http://104.236.113.194//disco/web/class/reservas/'.$imagen.'.jpg';
+ $imagenUrl='http://dev.appwebpy.com/disco/web/class/reservas/'.$imagen.'.jpg';
  $codigoEvento=obtenerCodigo('eventos','eve_cod','eve_nom',$evento);
  
  $query = "INSERT INTO reservas(res_nom,res_obs,eve_cod,res_fecha,res_telefono,res_activo,res_confirm,res_imagen)"
@@ -16,7 +16,7 @@
  //ejecucion del query
  $ejecucion = pg_query($query)or die('Error al realizar la carga');
  
-	echo ("SERVER: ok, Datos Recibidos Exitosamente..!");
+	echo ("SERVER: Datos Recibidos Exitosamente..!");
 	
 	
 	//echo ("SERVER: ok, parametros recibidos -> ".$cedula."\n");

@@ -23,10 +23,10 @@ $codusuario=  $_SESSION["codigo_usuario"];
         if(isset($_POST['modificar'])){
             pg_query("update reservas set res_confirm='$estadoM' where res_cod=$codigoModif");
             $query = '';
-            header("Refresh:0; url=http://104.236.113.194/disco/web/reservas/ABMreserva.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/reservas/ABMreserva.php");
         }
         //Si es Eliminar
         if(isset($_POST['borrar'])){
             pg_query("update reservas set res_activo='f' WHERE res_cod=$codigoElim");
-            header("Refresh:0; url=http://104.236.113.194/disco/web/reservas/ABMreserva.php");
+            header("Refresh:0; url=http://dev.appwebpy.com/disco/web/reservas/ABMreserva.php");
 	}
