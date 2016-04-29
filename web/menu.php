@@ -1,6 +1,6 @@
 <?php
   
-    $conectate=pg_connect("host=localhost port=5432 dbname=denunciasintn user=postgres password=2016.dat4b4s3.cent0s")or die ('Error al conectar a la base de datos menu');
+    $conectate=pg_connect("host=localhost port=5432 dbname=denunciasintn user=postgres password=2016aws.Postgres.ubuntu")or die ('Error al conectar a la base de datos menu');
     $consulta1= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_fecha < now()");
     $consulta2= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='t' and res_confirm='f' and res_fecha < now()");
     $consulta3= pg_exec($conectate,"select count(res_cod) as cantidad from reservas where res_activo='f' and res_confirm='f' and res_fecha < now()");
